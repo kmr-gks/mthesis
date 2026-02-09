@@ -1,0 +1,5 @@
+$latex = 'platex -kanji=utf8 -no-guess-input-enc -synctex=1 -interaction=nonstopmode -file-line-error';
+$bibtex = 'bibtexu';
+$dvipdf = 'dvipdfmx %O -o %D %S';
+$makeindex = 'mendex %O -o %D %S';
+$pdf_mode = 3; 

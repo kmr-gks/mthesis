@@ -1,0 +1,9 @@
+.vscode/
+*.aux
+*.bbl
+*.log
+*.blg
+*.fdb_latexmk
+*.gz
+*.fls
+main.pdf
