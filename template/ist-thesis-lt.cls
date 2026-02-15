@@ -5,7 +5,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{ist-thesis-lt}[\istthesisdate, \istthesisversion]
 \LoadClass[11pt]{ltjarticle}
-\typeout{Master/Bachelor Thesis Style for IST, Osaka University. LuaLaTeX support by wa-otoda.}
+\typeout{Master/Bachelor Thesis Style for IST, XXX University. LuaLaTeX support by wa-otoda.}
 %
 % Printing Area.... for A4
 %
@@ -109,7 +109,7 @@
   \def\isfinal{1}
   \def\doctitle{修士学位論文}
   \def\institutestr{
-    大阪大学 大学院情報科学研究科 \\
+    XX大学院\\
     コンピュータサイエンス専攻 ソフトウェア工学講座}% 
   \def\@evenhead{}%
   \def\@oddhead{}%
@@ -123,7 +123,7 @@
   \def\doctitle{Master Thesis}
   \def\institutestr{
     Software Engineering Laboratory, Department of Computer Science\\
-    Graduate School of Information Science and Technology, Osaka University}% 
+    Graduate School of Information Science and Technology, XXX University}% 
   \def\@evenhead{}%
   \def\@oddhead{}%
   \def\@oddfoot{\hfill\myfoot\hfill}%
@@ -150,7 +150,7 @@
 \def\ps@bachelorthesis{
   \def\isfinal{1}
   \def\doctitle{特別研究報告}
-  \def\institutestr{大阪大学 基礎工学部 情報科学科}
+  \def\institutestr{XX大学 XX学部}
   \def\@evenhead{}%
   \def\@oddhead{}%
   \def\@oddfoot{\hfill\myfoot\hfill}%
@@ -162,7 +162,7 @@
   \def\isfinal{1}
   \def\doctitle{Graduation Thesis}
   \def\institutestr{
-    Department of Information and Computer Sciences\\School of Engineering Science, Osaka University}
+    Department of Information and Computer Sciences\\School of Engineering Science, XXX University}
   \def\@evenhead{}%
   \def\@oddhead{}%
   \def\@oddfoot{\hfill\myfoot\hfill}%
@@ -189,7 +189,7 @@
 \def\ps@draft{
   \def\isfinal{0}
   \def\doctitle{DRAFT}
-  \def\institutestr{大阪大学 基礎工学部 情報科学科}
+  \def\institutestr{XX大学 XX学部}
   \def\draftstr{{\jpntoday, \curtime: \authorstr}}
   \def\draftfoot{%
     {\textsf{\draftstr}\hfill\textsf{\thepage}}%
@@ -204,7 +204,7 @@
   \def\ps@edraft{
   \def\isfinal{0}
   \def\doctitle{DRAFT}
-  \def\institutestr{Department of Information and Computer Sciences\\School of Engineering Science, Osaka University}
+  \def\institutestr{Department of Information and Computer Sciences\\School of Engineering Science, XXX University}
   \def\draftstr{{\engtoday, \curtime: \authorstr}}
   \def\draftfoot{%
     {\textsf{\draftstr}\hfill\textsf{\thepage}}%
