@@ -6,4 +6,4 @@
 *.fdb_latexmk
 *.gz
 *.fls
-main.pdf
+*.pdf

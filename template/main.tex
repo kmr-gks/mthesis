@@ -36,38 +36,38 @@
 % 本文開始
 \section{Introduction}
 
-\subsection{研究の背景}
-オープンソースソフトウェア（OSS）のエコシステムは、現代社会におけるデジタル基盤として極めて重要な役割を担っている。世界中のソフトウェア開発、企業活動、および学術研究の多くが、これらOSSプロジェクトに直接的あるいは間接的に依存している。
+\subsection{Research Background}
+Open-source software (OSS) ecosystems have become an indispensable digital foundation for modern society. A vast majority of software development, corporate operations, and academic research worldwide depend directly or indirectly on these OSS projects.
 
-しかし、多くのOSSプロジェクトの実態は、少数の「コア開発者」による献身的な貢献に強く依存していることが報告されている。大規模なプロジェクトであっても、コードの根幹に関わる主要な変更を担う開発者は極めて限定的であり、彼らの離脱や燃え尽き（Burnout）は、プロジェクトの停滞や終了に直結する構造的な脆弱性を孕んでいる。
+However, existing literature reports that many OSS projects rely heavily on the dedicated contributions of a small number of "core developers". Even in large-scale projects, the developers responsible for the most critical parts of the codebase are often extremely limited in number. This structure entails a inherent vulnerability: the departure or burnout of these key individuals can lead directly to the stagnation or termination of the project.
 
-この脆弱性は、Heartbleed（OpenSSL）やLog4Shell（Log4j）といった深刻なセキュリティ脆弱性の露呈を通じて、社会的に大きな注目を集めた。世界中のインフラを支えるソフトウェアが、実質的に一握りのボランティアによって維持されているという事実は、現代のデジタルエコシステムにおける「持続可能性（Sustainability）」の欠如を浮き彫りにした。
+This structural vulnerability gained significant public attention following severe security incidents such as Heartbleed (OpenSSL) and Log4Shell (Log4j). The fact that software underpinning global infrastructure is maintained by a handful of volunteers has highlighted a critical lack of "sustainability" in the modern digital ecosystem.
 
-\subsection{研究の動機と課題}
-こうしたOSSの持続可能性に関する課題を解決するため、近年では Open Collective などのファンディングプラットフォームを通じて、プロジェクトが直接的に寄付金などの金銭的支援を募る仕組みが普及しつつある。これにより、従来はボランティアベースで行われていた開発活動に対し、外部から資金を供給し、プロジェクトの安定的な運営を支援することが可能となった。
+\subsection{Motivation and Problem Statement}
+To address these sustainability challenges, funding platforms such as Open Collective have emerged, allowing projects to solicit financial support directly. These platforms provide a mechanism to inject external capital into activities that were previously performed on a purely volunteer basis, thereby supporting stable project management.
 
-理論上、OSSはボランティアによる自発的な貢献によって維持されるとされる。しかし、もし特定のプロジェクトが継続的な保守・開発のために外部からの資金援助に強く依存している場合、その資金の途絶はプロジェクトの寿命（Longevity）や、ひいてはそれらに依存するエコシステム全体の健全性に深刻な影響を及ぼす可能性がある。
+In theory, OSS projects are maintained by voluntary contributions. However, if these projects increasingly depend on external funding for continuous maintenance and development, the cessation of such funds could jeopardize the longevity of the projects and, by extension, the health of the entire ecosystem that relies on them.
 
-現在、多くのプロジェクトが資金を獲得しているものの、提供された「資金」が具体的に「ソフトウェア開発活動」にどのような影響を及ぼしているか、その相関関係については、定量的には十分に解明されていない。
+While many projects are now receiving significant financial contributions, the specific impact of these "funds" on actual "software development activities" remains poorly understood. Specifically, the correlation and causal relationships between funding and development productivity have not yet been sufficiently quantified.
 
-\subsection{研究の目的}
-本研究の目的は、外部からのファンディングがOSSプロジェクトのソフトウェア開発に与える影響とその関係性を、データに基づいて調査することである。具体的には、以下の3つのリサーチクエスチョン（RQ）に取り組む。
+\subsection{Research Objectives}
+The objective of this research is to investigate the relationship between external funding and software development activities in OSS projects based on empirical data. Specifically, we address the following three Research Questions (RQs):
 
 \begin{enumerate}
-    \item \textbf{資金提供の実態調査}：どのような背景や目的で、どの程度の規模の資金がOSSプロジェクトに提供されているのかを明らかにする。
-    \item \textbf{資金使途の分析}：プロジェクトが受け取った資金が、エンジニアリング、マーケティング、あるいは運営維持など、どのような目的に支出されているのかを調査する。
-    \item \textbf{開発活動への影響の定量的測定}：資金の獲得および支出が、GitHub上の開発アクティビティ（プルリクエスト数、コミット数、アクティブ開発者数など）とどのように相関しているかを定量的に評価する。
+    \item \textbf{RQ1: Investigation of Financial Contributions.} What are the motivations and scales of financial contributions made to OSS projects?
+    \item \textbf{RQ2: Analysis of Funding Expenditures.} For what purposes (e.g., engineering, marketing, or operations) do projects spend the funds they receive?
+    \item \textbf{RQ3: Quantitative Measurement of Impact on Development.} How do the acquisition and expenditure of funds correlate with GitHub development activities, such as the number of pull requests, commits, and active developers?
 \end{enumerate}
 
-\subsection{研究の手法（概要）}
-本研究では、Open Collective APIを使用して、対象となるOSSプロジェクトの全取引履歴を収集する。これには、支出目的、金額、日付などの詳細なメタデータが含まれる。
+\subsection{Methodology Overview}
+In this study, we utilize the Open Collective API to collect the complete transaction histories of target OSS projects. This dataset includes granular metadata such as expenditure purposes, transaction amounts, and timestamps.
 
-次に、収集した資金データとGitHubのコントリビューション履歴を紐付け、資金獲得の前後、あるいは特定の支出（例：エンジニアリングへの支払い）の前後で、開発アクティビティにどのような変化が生じているかを比較分析する。これにより、資金の投入が直接的に活発なメンテナンスや開発の促進に寄与しているのかを検証する。
+Next, we correlate this financial data with GitHub contribution histories to analyze changes in development activity before and after the acquisition of funds or specific expenditures (e.g., payments for engineering tasks). Through this approach, we verify whether the injection of capital directly contributes to more active maintenance and development.
 
-\subsection{研究の意義}
-本研究の対象となるプロジェクトは、世界中の企業、組織、研究者が利用するクリティカルなOSSインフラストラクチャである。これらのプロジェクトが実際に寄付金に依存して維持されている実態が明らかになれば、それはエコシステム全体の潜在的なリスクを示す重要な知見となる。
+\subsection{Significance of the Research}
+The projects targeted in this study are critical OSS infrastructures used by companies, organizations, and researchers worldwide. If it is revealed that these projects rely heavily on donations for their maintenance, it will provide crucial insights into the potential risks and vulnerabilities of the global software ecosystem.
 
-本研究の結果は、OSSの持続可能性を模索する開発者コミュニティだけでなく、OSSに依存する企業や、支援の枠組みを設計するファンディングプラットフォーム運営者にとって、資金提供の有効性とプロジェクトの健全性を客観的に判断するための重要な指針を提供するものである。
+The findings of this research will provide essential guidelines for developer communities seeking sustainability, companies dependent on OSS, and funding platform operators to evaluate the effectiveness of financial support and the overall health of projects.
 
 \section{Background and Related Work}
 
