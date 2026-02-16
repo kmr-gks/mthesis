@@ -1,5 +1,5 @@
 {
-	"latex-workshop.latex.autoBuild.run": "never",
+	"latex-workshop.latex.autoBuild.run": "onFileChange",
 	"latex-workshop.latex.recipe.default": "latexmk (latexmkrc)",
 	"latex-workshop.latex.recipes": [
 		{
@@ -17,5 +17,8 @@
 			],
 			"env": {}
 		}
-	]
+	],
+	"workbench.editorAssociations": {
+		"*.pdf": "latex-workshop-pdf-hook"
+	}
 }
