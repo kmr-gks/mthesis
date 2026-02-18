@@ -39,7 +39,7 @@
 \subsection{Research Background}
 Open-source software (OSS) ecosystems have become an indispensable digital foundation for modern society. A vast majority of software development, corporate operations, and academic research worldwide depend directly or indirectly on these OSS projects.
 
-However, existing literature reports that many OSS projects rely heavily on the dedicated contributions of a small number of ``core developers''\cite{sample}. Core developers are defined as a key group of contributors who possess deep technical knowledge of the project and hold the authority to make significant changes to the source code. Even in large-scale projects, the developers responsible for the most critical parts of the codebase are often extremely limited in number\cite{sample}. This structure entails an inherent vulnerability: the departure or burnout of these key individuals can lead directly to the stagnation or termination of the project.
+However, existing literature reports that many OSS projects rely heavily on the dedicated contributions of a small number of ``core developers''\cite{sample}. Core developers are defined as a key group of contributors who possess deep technical knowledge of the project and hold the authority to make significant changes to the source code. Even in large-scale projects, the developers responsible for the most critical parts of the codebase are often extremely limited in number\cite{sample}. This structure entails an inherent vulnerability: the departure or burnout of these core developers can lead directly to the stagnation or termination of the project.
 
 This structural vulnerability gained significant public attention following severe security incidents such as Heartbleed (OpenSSL)\cite{sample} and Log4Shell (Log4j)\cite{sample}. The fact that software underpinning global infrastructure is maintained by a handful of volunteers has highlighted a critical lack of sustainability in the modern digital ecosystem\cite{sample}.
 
@@ -54,7 +54,7 @@ While many projects are now receiving significant financial contributions, the s
 The objective of this research is to investigate the relationship between external funding and software development activities in OSS projects based on empirical data. Specifically, we address the following three Research Questions:
 
 \begin{enumerate}
-    \item \textbf{RQ1: Investigation of Financial Contributions.} What are the motivations and scales of financial contributions made to OSS projects?
+    \item \textbf{RQ1: Investigation of Financial Contributions.} Why are they funding these open-source projects? How much are they donating?
     \item \textbf{RQ2: Analysis of Funding Expenditures.} For what purposes (e.g., engineering, marketing, or operations) do projects spend the funds they receive?
     \item \textbf{RQ3: Quantitative Measurement of Impact on Development.} How do the acquisition and expenditure of funds correlate with GitHub development activities, such as the number of pull requests, commits, and active developers?
 \end{enumerate}
@@ -73,25 +73,24 @@ The findings of this research will provide essential guidelines for developer co
 
 \subsection{OSS Sustainability and Core Developers}
 
-The sustainability of open-source software (OSS) is a critical concern as modern society increasingly relies on these projects as a digital foundation\cite{sample}. However, research has shown that many OSS projects suffer from a high concentration of knowledge, relying on a very small group of ``core developers''\cite{sample}. 
+The sustainability of open-source software (OSS) is a critical concern as modern society increasingly relies on these projects as a digital foundation\cite{sample}. However, research has shown that many OSS projects suffer from a high concentration of knowledge, relying on a very small group of core developers. 
 
-To quantify this risk, the Truck Factor (TF) metric\cite{sample} was proposed to represent the minimum number of developers who must leave a project before it becomes incapacitated\cite{sample}. Empirical studies on popular GitHub repositories have revealed that 65\% of these projects have a Truck Factor of two or less\cite{sample}. Furthermore, a large-scale study of over 36,000 projects found that 89\% of projects have experienced the loss of their core development team at least once, with 70\% of these abandonments occurring within the first three years of the project's life\cite{sample}. Only 27\% of projects that lose their core team are able to survive and attract new core developers\cite{sample}.
+To quantify this risk, the ``Truck Factor'' metric\cite{sample} was proposed to represent the minimum number of developers who must leave a project before it becomes incapacitated\cite{sample}. Empirical studies on popular GitHub repositories have revealed that 65\% of these projects have a Truck Factor of two or less\cite{sample}. Furthermore, a large-scale study of over 36,000 projects found that 89\% of projects have experienced the loss of their core development team at least once, with 70\% of these abandonments occurring within the first three years of the project's life\cite{sample}. Only 27\% of projects that lose their core team are able to survive and attract new core developers\cite{sample}.
 
 The danger of this structural vulnerability is well illustrated by high-profile security incidents. The Log4Shell vulnerability in the Log4j library exposed how critical global infrastructure was maintained by uncompensated volunteers, some of whom worked 22-hour shifts to mitigate the crisis\cite{sample}. Similarly, the Heartbleed incident in OpenSSL revealed that a project securing the majority of the internet was operating on an annual donation budget of only US\$2,000, with only one full-time developer\cite{sample}. These cases highlight the urgent need for external funding to support core developers and ensure long-term sustainability\cite{sample}.
 
 \subsection{Funding in Open-source Ecosystems}
-The emergence of platforms like Open Collective has introduced unprecedented transparency to the financial management of open-source projects by making all transactions publicly visible. While corporate entities tend to provide larger individual donations, individual contributors are essential for long-term sustainability\cite{sample}, as they often provide higher total funding and demonstrate greater stickiness through recurring support. However, projects like OpenSSL illustrate that reliance on grassroots funding alone can be insufficient for critical infrastructure, often resulting in chronic underfunding until a major crisis occurs.
+The emergence of platforms like Open Collective has introduced unprecedented transparency to the financial management of open-source projects by making all transactions publicly visible. While corporate entities tend to provide larger individual donations, individual contributors are essential for long-term sustainability\cite{sample}, as they often provide higher total funding and demonstrate greater stickiness through recurring support\cite{sample}. However, projects like OpenSSL illustrate that reliance on grassroots funding alone can be insufficient for critical infrastructure, often resulting in chronic underfunding until a major crisis occurs.
 
-Engineering-related funds are primarily spent on feature development, maintenance, and bounties to incentivize bug fixes. Although a positive correlation has been observed between corporate donation levels and project maintenance activity, the specific impact of diverse expenditure types on development productivity remains poorly understood. This study addresses this research gap by quantitatively analyzing the relationship between these financial flows and GitHub development metrics.
+Although a positive correlation has been observed between corporate donation levels and project maintenance activity, the specific impact of diverse expenditure types on development productivity remains poorly understood. This study addresses this research gap by quantitatively analyzing the relationship between these financial flows and GitHub development metrics.
 
 \subsection{Empirical Studies on Development Activity}
-To evaluate the impact of external events on OSS projects, researchers typically utilize established repository metrics. Indicators such as the number of commits and pull requests (PRs) are widely accepted as proxies for development activity and productivity\cite{sample}. Additionally, community metrics such as stars and forks are used to measure project popularity and visibility\cite{sample}.
+To evaluate the impact of external events on OSS projects, researchers typically utilize established repository metrics. Indicators such as the number of commits and pull requests (PRs) are widely accepted as proxies for development activity and productivity. Additionally, community metrics such as stars and forks are used to measure project popularity and visibility.
 
 Studies focusing on social media exposure, such as promotion on Hacker News, have demonstrated that increased visibility can lead to a significant spike in forks, stars, and the number of contributors shortly after the project is mentioned\cite{sample}. Research has also indicated that projects receiving positive community sentiment through these platforms exhibit higher growth in commits and PRs\cite{sample}. This study builds upon these established empirical methods to investigate whether the injection of financial resources through funding platforms leads to similar quantifiable improvements in development activity.
 
 \acknowledgement{
 ここに謝辞を書く
-参考文献を参照する\cite{KamiyaTSE2002}
 }
 
 % 参考文献を出力
