@@ -1,4 +1,5 @@
 \documentclass[11pt]{ist-thesis}
+\usepackage{multirow}
 \pagestyle{bachelorthesis}  % 卒論
 %\pagestyle{ebachelorthesis}  % Graduation Thesis
 %\pagestyle{masterthesis}  % 修論（目安;38ページ以上）
@@ -111,7 +112,7 @@ Studies focusing on social media exposure, such as promotion on Hacker News, hav
 
 \subsection{それぞれのテーブルのカラム}
 
-3つのSQLテーブルのカラムは図\ref{tab:collective-transactions-columns}、\ref{tab:collectives-columns}、\ref{tab:commit-history-columns}のようになっている。
+3つのSQLテーブルのカラムはTable\ref{tab:collective-transactions-columns}、\ref{tab:collectives-columns}、\ref{tab:commit-history-columns}のようになっている。
 
 \begin{table}[htbp]
     \centering
@@ -249,16 +250,49 @@ Studies focusing on social media exposure, such as promotion on Hacker News, hav
 \end{table}
 
 \subsection{RQ2: Analysis of Funding Expenditures}
+コレクティブが受け取った資金をどのように使っているかを分類した。
+分類には、ルールベースの分類と、機械学習を用いた分類の2種類が考えられる。
+今回はルールベースの分類を行った。
+Table \ref{tab:l1l2-summary-with-total}に、l1\_payeeとl2\_useごとの件数・支出合計を示す。
+
 \begin{table}[htbp]
     \centering
-    \caption{Funding Expenditures Overview}
-    \begin{tabular}{|c|c|c|c|}
+    \caption{l1\_payee と l2\_use ごとの件数・支出合計（USD）}
+    \label{tab:l1l2-summary-with-total}
+    \begin{tabular}{|c|c|r|r|}
         \hline
-        Project Name & Total Funding & Corporate Funding & Individual Funding \\
+        l1\_payee & l2\_use & n\_records & sum\_amount\_usd \\
         \hline
-        Project A & \$100,000 & \$70,000 & \$30,000 \\
-        Project B & \$50,000 & \$20,000 & \$30,000 \\
-        Project C & \$200,000 & \$150,000 & \$50,000 \\
+        \multirow{3}{*}{INDIVIDUAL} & INDIVIDUAL\_OTHER & 14265 & -5496780.13 \\
+        \cline{2-4}
+        & COMPENSATION & 18488 & -31702794.38 \\
+        \cline{2-4}
+        & \textbf{TOTAL} & \textbf{32753} & \textbf{-37299574.51} \\
+        \hline
+
+        \multirow{4}{*}{ORGANIZATION} & MARKETING & 18 & -8195.49 \\
+        \cline{2-4}
+        & INFRA & 119 & -269162.02 \\
+        \cline{2-4}
+        & GOVERNANCE & 31 & -277295.79 \\
+        \cline{2-4}
+        & ORG\_OTHER & 3876 & -15590876.88 \\
+        \cline{2-4}
+        & \textbf{TOTAL} & \textbf{4044} & \textbf{-16145530.18} \\
+        \hline
+
+        \multirow{2}{*}{OTHER} & UNKNOWN & 30 & -4924.64 \\
+        \cline{2-4}
+        & \textbf{TOTAL} & \textbf{30} & \textbf{-4924.64} \\
+        \hline
+
+        \multirow{4}{*}{VENDOR} & ECOMMERCE & 159 & -44086.03 \\
+        \cline{2-4}
+        & CLOUD\_OR\_SAAS & 1959 & -181326.89 \\
+        \cline{2-4}
+        & VENDOR\_OTHER & 4448 & -4360332.87 \\
+        \cline{2-4}
+        & \textbf{TOTAL} & \textbf{6566} & \textbf{-4585745.79} \\
         \hline
     \end{tabular}
 \end{table}
