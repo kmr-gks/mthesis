@@ -89,7 +89,7 @@ To evaluate the impact of external events on OSS projects, researchers typically
 
 Studies focusing on social media exposure, such as promotion on Hacker News, have demonstrated that increased visibility can lead to a significant spike in forks, stars, and the number of contributors shortly after the project is mentioned\cite{sample}. Research has also indicated that projects receiving positive community sentiment through these platforms exhibit higher growth in commits and PRs\cite{sample}. This study builds upon these established empirical methods to investigate whether the injection of financial resources through funding platforms leads to similar quantifiable improvements in development activity.
 
-\section{(draft)Progress and Results}
+\section{(draft) Progress and Results}
 
 \subsection{マイニングしたデータについて}
 マイニングしたデータは以下の3つのSQLテーブルに格納されている。
@@ -101,150 +101,149 @@ Studies focusing on social media exposure, such as promotion on Hacker News, hav
         Name & 説明\\
         \hline
         collective\_transactions & コレクティブの収入、支出のデータをまとめたテーブル \\
+        \hline
         collectives & コレクティブの情報をまとめたテーブル \\
+        \hline
         commit\_history & コミット履歴をまとめたテーブル \\
         \hline
     \end{tabular}
 \end{table}
 
-\subsection{テーブル collective\_transactions のカラム}
+\subsection{それぞれのテーブルのカラム}
+
+3つのSQLテーブルのカラムは図\ref{tab:collective-transactions-columns}、\ref{tab:collectives-columns}、\ref{tab:commit-history-columns}のようになっている。
 
 \begin{table}[htbp]
     \centering
     \caption{collective\_transactions のカラム一覧}
-    \begin{tabular}{|c|c|c|}
+    \label{tab:collective-transactions-columns}
+    \begin{tabular}{|c|c|}
         \hline
-        column\_name & 意味 & data\_type \\
+        column\_name & 意味 \\
         \hline
-        amount\_value        & 送金金額 & numeric \\
+        amount\_value        & 送金金額 \\
         \hline
-        amount\_currency     & 通貨 & text \\
+        amount\_currency     & 通貨 \\
         \hline
-        created\_at          & 送金時間 & timestamp without time zone \\
+        created\_at          & 送金時間 \\
         \hline
-        expense\_tags        & 支出の種類(OpenCollectiveによって定義された値ではなく、自然言語で表現される) & jsonb \\
+        expense\_tags        & 支出の種類(自然言語で表現される) \\
         \hline
-        type                & debit or credit(収入か支出を区別する) & text \\
+        type                & debit or credit(収入か支出を区別する) \\
         \hline
-        kind                & 送金の種類(資金の受け取りか、資金の使用か、手数料の支払いかを区別する) & text \\
+        kind                & \begin{tabular}{c}
+送金の種類(資金の受け取りか、 \\ 資金の使用か、手数料の支払いかを区別する)
+\end{tabular} \\
         \hline
-        description         & 説明文(自然言語) & text \\
+        description         & 説明文(自然言語) \\
         \hline
-        id                  & id & text \\
+        id                  & id \\
         \hline
-        from\_account\_name  & 送金元の名前 & text \\
+        from\_account\_name  & 送金元の名前 \\
         \hline
-        from\_account\_type  & 送金元のタイプ & text \\
+        from\_account\_type  & 送金元のタイプ \\
         \hline
-        to\_account\_slug    & 送金先のスラグ(一意に区別する文字列) & text \\
+        to\_account\_slug    & 送金先のスラグ(一意に区別する文字列) \\
         \hline
-        to\_account\_name    & 送金先の名前 & text \\
+        to\_account\_name    & 送金先の名前 \\
         \hline
-        to\_account\_type    & 送金先のタイプ & text \\
+        to\_account\_type    & 送金先のタイプ \\
         \hline
-        expense\_type        & 送金の種類(どういう形で支払いが発生したか) & text \\
+        expense\_type        & 送金の種類(どういう形で支払いが発生したか) \\
         \hline
-        expense\_description & 説明文(自然言語) & text \\
+        expense\_description & 説明文(自然言語) \\
         \hline
-        from\_account\_slug  & 送金元のスラグ(一意に区別する文字列) & text \\
+        from\_account\_slug  & 送金元のスラグ(一意に区別する文字列) \\
         \hline
-        project\_slug        & プロジェクトのスラグ(一意に区別する文字列) & text \\
+        project\_slug        & プロジェクトのスラグ(一意に区別する文字列) \\
         \hline
-        project\_name        & プロジェクト名 & text \\
+        project\_name        & プロジェクト名 \\
         \hline
     \end{tabular}
 \end{table}
-
-\subsection{テーブル collectives のカラム}
 
 \begin{table}[htbp]
     \centering
     \caption{collectives のカラム一覧}
     \label{tab:collectives-columns}
-    \begin{tabular}{|c|c|c|}
+    \begin{tabular}{|c|c|}
         \hline
-        column\_name & 意味 & data\_type \\
+        column\_name & 意味 \\
         \hline
-        is\_active & アクティブかどうか(3476個のコレクティブの中で、アクティブでないものは1個だった) & boolean \\
+        total\_spent\_value & 今までの支出の累計金額 \\
         \hline
-        total\_spent\_value & 今までの支出の累計金額 & numeric \\
+        total\_spent\_currency & 通貨  \\
         \hline
-        total\_spent\_currency & 通貨 &  \\
+        social\_links & ソーシャルメディア(Webサイト, github, twitterなど)のリンク \\
         \hline
-        social\_links & ソーシャルメディア(Webサイト, github, twitterなど)のリンク & jsonb \\
+        yearly\_budget\_value & 1年間に受け取る資金の予想金額 \\
         \hline
-        yearly\_budget\_value & 1年間に受け取る資金の予想金額 & numeric \\
+        yearly\_budget\_currency & 通貨  \\
         \hline
-        yearly\_budget\_currency & 通貨 &  \\
+        balance\_value & 残高 \\
         \hline
-        balance\_value & 残高 & numeric \\
+        balance\_currency & 通貨  \\
         \hline
-        balance\_currency & 通貨 &  \\
+        created\_at & 登録日 \\
         \hline
-        created\_at & 登録日 & timestamp without time zone \\
+        total\_received\_value & 今まで受け取った金額 \\
         \hline
-        total\_received\_value & 今まで受け取った金額 & numeric \\
+        total\_received\_currency & 通貨  \\
         \hline
-        total\_received\_currency & 通貨 &  \\
+        twitter\_handle & twitterの登録名 \\
         \hline
-        twitter\_handle & twitterの登録名 & text \\
+        id & collectiveのid \\
         \hline
-        host\_slug & fiscal hostのこと。今回はhost\_slugがopensourceのものを対象にしている。 & text \\
+        github\_account & githubアカウント \\
         \hline
-        id & collectiveのid & text \\
+        slug & collectiveのslug \\
         \hline
-        github\_account & githubアカウント & text \\
+        name & collectiveの名前 \\
         \hline
-        slug & collectiveのslug & text \\
+        type & collective, projectなどの種類 \\
         \hline
-        name & collectiveの名前 & text \\
+        description & 説明文 \\
         \hline
-        type & collective, projectなどの種類 & text \\
+        website & ウェブサイトのURL \\
         \hline
-        description & 説明文 & text \\
-        \hline
-        website & ウェブサイトのURL & text \\
-        \hline
-        github\_handle & githubのアカウント & text \\
+        github\_handle & githubのアカウント \\
         \hline
     \end{tabular}
 \end{table}
-
-\subsection{テーブル commit\_history のカラム}
 
 \begin{table}[htbp]
     \centering
     \caption{commit\_history のカラム一覧}
     \label{tab:commit-history-columns}
-    \begin{tabular}{|c|c|c|}
+    \begin{tabular}{|c|c|}
         \hline
-        column\_name & 意味 & data\_type \\
+        column\_name & 意味 \\
         \hline
-        author\_name & コミットの編集を行った人 & text \\
+        author\_name & コミットの編集を行った人 \\
         \hline
-        author\_email & メールアドレス & text \\
+        author\_email & メールアドレス \\
         \hline
-        author\_time & 最初にコミットが行われた日時 & timestamp without time zone \\
+        author\_time & 最初にコミットが行われた日時 \\
         \hline
-        committer\_name & コミットの編集をした人 & text \\
+        committer\_name & コミットの編集をした人 \\
         \hline
-        committer\_email & メールアドレス & text \\
+        committer\_email & メールアドレス \\
         \hline
-        commit\_time & コミットの編集(rebaseなど)が行われた日時 & timestamp without time zone \\
+        commit\_time & コミットの編集(rebaseなど)が行われた日時 \\
         \hline
-        mined\_at & マイニングを行った日時 & timestamp without time zone \\
+        mined\_at & マイニングを行った日時  \\
         \hline
-        repo\_path & リポジトリのパス & text \\
+        repo\_path & リポジトリのパス \\
         \hline
-        subject & コミットメッセージ & text \\
+        subject & コミットメッセージ \\
         \hline
-        body & コミットの説明文 & text \\
+        body & コミットの説明文 \\
         \hline
-        repo\_name & リポジトリ名 & text \\
+        repo\_name & リポジトリ名 \\
         \hline
-        commit\_hash & コミットハッシュ & text \\
+        commit\_hash & コミットハッシュ \\
         \hline
-        parent\_hashes & 親コミットのハッシュ & text \\
+        parent\_hashes & 親コミットのハッシュ \\
         \hline
     \end{tabular}
 \end{table}
