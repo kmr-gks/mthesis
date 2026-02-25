@@ -89,6 +89,181 @@ To evaluate the impact of external events on OSS projects, researchers typically
 
 Studies focusing on social media exposure, such as promotion on Hacker News, have demonstrated that increased visibility can lead to a significant spike in forks, stars, and the number of contributors shortly after the project is mentioned\cite{sample}. Research has also indicated that projects receiving positive community sentiment through these platforms exhibit higher growth in commits and PRs\cite{sample}. This study builds upon these established empirical methods to investigate whether the injection of financial resources through funding platforms leads to similar quantifiable improvements in development activity.
 
+\section{(draft)Progress and Results}
+
+\subsection{マイニングしたデータについて}
+マイニングしたデータは以下の3つのSQLテーブルに格納されている。
+\begin{table}[htbp]
+    \centering
+    \caption{テーブル一覧}
+    \begin{tabular}{|c|c|}
+        \hline
+        Name & 説明\\
+        \hline
+        collective\_transactions & コレクティブの収入、支出のデータをまとめたテーブル \\
+        collectives & コレクティブの情報をまとめたテーブル \\
+        commit\_history & コミット履歴をまとめたテーブル \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{テーブル collective\_transactions のカラム}
+
+\begin{table}[htbp]
+    \centering
+    \caption{collective\_transactions のカラム一覧}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        column\_name & 意味 & data\_type \\
+        \hline
+        amount\_value        & 送金金額 & numeric \\
+        \hline
+        amount\_currency     & 通貨 & text \\
+        \hline
+        created\_at          & 送金時間 & timestamp without time zone \\
+        \hline
+        expense\_tags        & 支出の種類(OpenCollectiveによって定義された値ではなく、自然言語で表現される) & jsonb \\
+        \hline
+        type                & debit or credit(収入か支出を区別する) & text \\
+        \hline
+        kind                & 送金の種類(資金の受け取りか、資金の使用か、手数料の支払いかを区別する) & text \\
+        \hline
+        description         & 説明文(自然言語) & text \\
+        \hline
+        id                  & id & text \\
+        \hline
+        from\_account\_name  & 送金元の名前 & text \\
+        \hline
+        from\_account\_type  & 送金元のタイプ & text \\
+        \hline
+        to\_account\_slug    & 送金先のスラグ(一意に区別する文字列) & text \\
+        \hline
+        to\_account\_name    & 送金先の名前 & text \\
+        \hline
+        to\_account\_type    & 送金先のタイプ & text \\
+        \hline
+        expense\_type        & 送金の種類(どういう形で支払いが発生したか) & text \\
+        \hline
+        expense\_description & 説明文(自然言語) & text \\
+        \hline
+        from\_account\_slug  & 送金元のスラグ(一意に区別する文字列) & text \\
+        \hline
+        project\_slug        & プロジェクトのスラグ(一意に区別する文字列) & text \\
+        \hline
+        project\_name        & プロジェクト名 & text \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{テーブル collectives のカラム}
+
+\begin{table}[htbp]
+    \centering
+    \caption{collectives のカラム一覧}
+    \label{tab:collectives-columns}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        column\_name & 意味 & data\_type \\
+        \hline
+        is\_active & アクティブかどうか(3476個のコレクティブの中で、アクティブでないものは1個だった) & boolean \\
+        \hline
+        total\_spent\_value & 今までの支出の累計金額 & numeric \\
+        \hline
+        total\_spent\_currency & 通貨 &  \\
+        \hline
+        social\_links & ソーシャルメディア(Webサイト, github, twitterなど)のリンク & jsonb \\
+        \hline
+        yearly\_budget\_value & 1年間に受け取る資金の予想金額 & numeric \\
+        \hline
+        yearly\_budget\_currency & 通貨 &  \\
+        \hline
+        balance\_value & 残高 & numeric \\
+        \hline
+        balance\_currency & 通貨 &  \\
+        \hline
+        created\_at & 登録日 & timestamp without time zone \\
+        \hline
+        total\_received\_value & 今まで受け取った金額 & numeric \\
+        \hline
+        total\_received\_currency & 通貨 &  \\
+        \hline
+        twitter\_handle & twitterの登録名 & text \\
+        \hline
+        host\_slug & fiscal hostのこと。今回はhost\_slugがopensourceのものを対象にしている。 & text \\
+        \hline
+        id & collectiveのid & text \\
+        \hline
+        github\_account & githubアカウント & text \\
+        \hline
+        slug & collectiveのslug & text \\
+        \hline
+        name & collectiveの名前 & text \\
+        \hline
+        type & collective, projectなどの種類 & text \\
+        \hline
+        description & 説明文 & text \\
+        \hline
+        website & ウェブサイトのURL & text \\
+        \hline
+        github\_handle & githubのアカウント & text \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{テーブル commit\_history のカラム}
+
+\begin{table}[htbp]
+    \centering
+    \caption{commit\_history のカラム一覧}
+    \label{tab:commit-history-columns}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        column\_name & 意味 & data\_type \\
+        \hline
+        author\_name & コミットの編集を行った人 & text \\
+        \hline
+        author\_email & メールアドレス & text \\
+        \hline
+        author\_time & 最初にコミットが行われた日時 & timestamp without time zone \\
+        \hline
+        committer\_name & コミットの編集をした人 & text \\
+        \hline
+        committer\_email & メールアドレス & text \\
+        \hline
+        commit\_time & コミットの編集(rebaseなど)が行われた日時 & timestamp without time zone \\
+        \hline
+        mined\_at & マイニングを行った日時 & timestamp without time zone \\
+        \hline
+        repo\_path & リポジトリのパス & text \\
+        \hline
+        subject & コミットメッセージ & text \\
+        \hline
+        body & コミットの説明文 & text \\
+        \hline
+        repo\_name & リポジトリ名 & text \\
+        \hline
+        commit\_hash & コミットハッシュ & text \\
+        \hline
+        parent\_hashes & 親コミットのハッシュ & text \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{RQ2: Analysis of Funding Expenditures}
+\begin{table}[htbp]
+    \centering
+    \caption{Funding Expenditures Overview}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Project Name & Total Funding & Corporate Funding & Individual Funding \\
+        \hline
+        Project A & \$100,000 & \$70,000 & \$30,000 \\
+        Project B & \$50,000 & \$20,000 & \$30,000 \\
+        Project C & \$200,000 & \$150,000 & \$50,000 \\
+        \hline
+    \end{tabular}
+\end{table}
+
 \acknowledgement{
 ここに謝辞を書く
 }
