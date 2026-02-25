@@ -90,187 +90,188 @@ To evaluate the impact of external events on OSS projects, researchers typically
 
 Studies focusing on social media exposure, such as promotion on Hacker News, have demonstrated that increased visibility can lead to a significant spike in forks, stars, and the number of contributors shortly after the project is mentioned\cite{sample}. Research has also indicated that projects receiving positive community sentiment through these platforms exhibit higher growth in commits and PRs\cite{sample}. This study builds upon these established empirical methods to investigate whether the injection of financial resources through funding platforms leads to similar quantifiable improvements in development activity.
 
-\section{(draft) Progress and Results}
+\section{(DRAFT) Progress and Results}
 
-\subsection{マイニングしたデータについて}
-マイニングしたデータは以下の3つのSQLテーブルに格納されている。
+\subsection{About the Mined Data}
+The mined data is stored in the following three SQL tables.
+
 \begin{table}[htbp]
     \centering
-    \caption{テーブル一覧}
+    \caption{List of Tables}
     \begin{tabular}{|c|c|}
         \hline
-        Name & 説明\\
+        Name & Description\\
         \hline
-        collective\_transactions & コレクティブの収入、支出のデータをまとめたテーブル \\
+        collective\_transactions & Table containing income and expenditure data for collectives \\
         \hline
-        collectives & コレクティブの情報をまとめたテーブル \\
+        collectives & Table containing general information about collectives \\
         \hline
-        commit\_history & コミット履歴をまとめたテーブル \\
+        commit\_history & Table containing commit history \\
         \hline
     \end{tabular}
 \end{table}
 
-\subsection{それぞれのテーブルのカラム}
+\subsection{Columns for Each Table}
 
-3つのSQLテーブルのカラムはTable\ref{tab:collective-transactions-columns}、\ref{tab:collectives-columns}、\ref{tab:commit-history-columns}のようになっている。
+The columns for the three SQL tables are shown in Table \ref{tab:collective-transactions-columns}, \ref{tab:collectives-columns}, and \ref{tab:commit-history-columns}.
 
 \begin{table}[htbp]
     \centering
-    \caption{collective\_transactions のカラム一覧}
+    \caption{Columns of collective\_transactions}
     \label{tab:collective-transactions-columns}
     \begin{tabular}{|c|c|}
         \hline
-        column\_name & 意味 \\
+        column\_name & Meaning \\
         \hline
-        amount\_value        & 送金金額 \\
+        amount\_value        & Transaction amount \\
         \hline
-        amount\_currency     & 通貨 \\
+        amount\_currency     & Currency \\
         \hline
-        created\_at          & 送金時間 \\
+        created\_at          & Transaction timestamp \\
         \hline
-        expense\_tags        & 支出の種類(自然言語で表現される) \\
+        expense\_tags        & Expense categories (natural language) \\
         \hline
-        type                & debit or credit(収入か支出を区別する) \\
+        type                & debit or credit (distinguishing income and expenditure) \\
         \hline
         kind                & \begin{tabular}{c}
-送金の種類(資金の受け取りか、 \\ 資金の使用か、手数料の支払いかを区別する)
+Transaction type (distinguishing fund receipt, \\ fund usage, or fee payment)
 \end{tabular} \\
         \hline
-        description         & 説明文(自然言語) \\
+        description         & Description (natural language) \\
         \hline
-        id                  & id \\
+        id                  & ID \\
         \hline
-        from\_account\_name  & 送金元の名前 \\
+        from\_account\_name  & Sender's name \\
         \hline
-        from\_account\_type  & 送金元のタイプ \\
+        from\_account\_type  & Sender's account type \\
         \hline
-        to\_account\_slug    & 送金先のスラグ(一意に区別する文字列) \\
+        to\_account\_slug    & Recipient's slug (unique identifier string) \\
         \hline
-        to\_account\_name    & 送金先の名前 \\
+        to\_account\_name    & Recipient's name \\
         \hline
-        to\_account\_type    & 送金先のタイプ \\
+        to\_account\_type    & Recipient's account type \\
         \hline
-        expense\_type        & 送金の種類(どういう形で支払いが発生したか) \\
+        expense\_type        & Payment type (the form in which the payment occurred) \\
         \hline
-        expense\_description & 説明文(自然言語) \\
+        expense\_description & Expense description (natural language) \\
         \hline
-        from\_account\_slug  & 送金元のスラグ(一意に区別する文字列) \\
+        from\_account\_slug  & Sender's slug (unique identifier string) \\
         \hline
-        project\_slug        & プロジェクトのスラグ(一意に区別する文字列) \\
+        project\_slug        & Project slug (unique identifier string) \\
         \hline
-        project\_name        & プロジェクト名 \\
+        project\_name        & Project name \\
         \hline
     \end{tabular}
 \end{table}
 
 \begin{table}[htbp]
     \centering
-    \caption{collectives のカラム一覧}
+    \caption{Columns of collectives}
     \label{tab:collectives-columns}
     \begin{tabular}{|c|c|}
         \hline
-        column\_name & 意味 \\
+        column\_name & Meaning \\
         \hline
-        total\_spent\_value & 今までの支出の累計金額 \\
+        total\_spent\_value & Cumulative expenditure to date \\
         \hline
-        total\_spent\_currency & 通貨  \\
+        total\_spent\_currency & Currency  \\
         \hline
-        social\_links & ソーシャルメディア(Webサイト, github, twitterなど)のリンク \\
+        social\_links & Links to social media (Website, GitHub, Twitter, etc.) \\
         \hline
-        yearly\_budget\_value & 1年間に受け取る資金の予想金額 \\
+        yearly\_budget\_value & Estimated yearly budget (funds to be received) \\
         \hline
-        yearly\_budget\_currency & 通貨  \\
+        yearly\_budget\_currency & Currency  \\
         \hline
-        balance\_value & 残高 \\
+        balance\_value & Current balance \\
         \hline
-        balance\_currency & 通貨  \\
+        balance\_currency & Currency  \\
         \hline
-        created\_at & 登録日 \\
+        created\_at & Registration date \\
         \hline
-        total\_received\_value & 今まで受け取った金額 \\
+        total\_received\_value & Total amount received to date \\
         \hline
-        total\_received\_currency & 通貨  \\
+        total\_received\_currency & Currency  \\
         \hline
-        twitter\_handle & twitterの登録名 \\
+        twitter\_handle & Twitter handle \\
         \hline
-        id & collectiveのid \\
+        id & Collective ID \\
         \hline
-        github\_account & githubアカウント \\
+        github\_account & GitHub account \\
         \hline
-        slug & collectiveのslug \\
+        slug & Collective slug \\
         \hline
-        name & collectiveの名前 \\
+        name & Collective name \\
         \hline
-        type & collective, projectなどの種類 \\
+        type & Type (e.g., collective, project) \\
         \hline
-        description & 説明文 \\
+        description & Description \\
         \hline
-        website & ウェブサイトのURL \\
+        website & Website URL \\
         \hline
-        github\_handle & githubのアカウント \\
+        github\_handle & GitHub handle \\
         \hline
     \end{tabular}
 \end{table}
 
 \begin{table}[htbp]
     \centering
-    \caption{commit\_history のカラム一覧}
+    \caption{Columns of commit\_history}
     \label{tab:commit-history-columns}
     \begin{tabular}{|c|c|}
         \hline
-        column\_name & 意味 \\
+        column\_name & Meaning \\
         \hline
-        author\_name & コミットの編集を行った人 \\
+        author\_name & Person who authored the commit \\
         \hline
-        author\_email & メールアドレス \\
+        author\_email & Author's email address \\
         \hline
-        author\_time & 最初にコミットが行われた日時 \\
+        author\_time & Timestamp when the commit was originally authored \\
         \hline
-        committer\_name & コミットの編集をした人 \\
+        committer\_name & Person who committed/edited the commit \\
         \hline
-        committer\_email & メールアドレス \\
+        committer\_email & Committer's email address \\
         \hline
-        commit\_time & コミットの編集(rebaseなど)が行われた日時 \\
+        commit\_time & Timestamp when the commit was recorded (e.g., via rebase) \\
         \hline
-        mined\_at & マイニングを行った日時  \\
+        mined\_at & Timestamp when the data was mined  \\
         \hline
-        repo\_path & リポジトリのパス \\
+        repo\_path & Repository path \\
         \hline
-        subject & コミットメッセージ \\
+        subject & Commit message subject \\
         \hline
-        body & コミットの説明文 \\
+        body & Commit description (body) \\
         \hline
-        repo\_name & リポジトリ名 \\
+        repo\_name & Repository name \\
         \hline
-        commit\_hash & コミットハッシュ \\
+        commit\_hash & Commit hash \\
         \hline
-        parent\_hashes & 親コミットのハッシュ \\
+        parent\_hashes & Parent commit hashes \\
         \hline
     \end{tabular}
 \end{table}
 
 \subsection{RQ2: Analysis of Funding Expenditures}
-コレクティブが受け取った資金をどのように使っているかを分類した。
-分類には、ルールベースの分類と、機械学習を用いた分類の2種類が考えられる。
-今回はルールベースの分類を行った。
-Table \ref{tab:l1l2-summary-with-total}に、l1\_payeeとl2\_useごとの件数・支出合計を示す。
+We categorized how collectives utilize the funds they receive. 
+Two possible approaches for this classification are rule-based and machine-learning-based. 
+In this study, we employed rule-based classification. 
+Table \ref{tab:expenditures-summary-with-subtotals} presents the record count and total expenditure for each Recipient\_Category and Purpose.
 
 \begin{table}[htbp]
     \centering
-    \caption{l1\_payee と l2\_use ごとの件数・支出合計（USD）}
-    \label{tab:l1l2-summary-with-total}
+    \caption{Record count and total expenditure (USD) by Recipient\_Category and Purpose}
+    \label{tab:expenditures-summary-with-subtotals}
     \begin{tabular}{|c|c|r|r|}
         \hline
-        l1\_payee & l2\_use & n\_records & sum\_amount\_usd \\
+        Recipient\_Category & Purpose & Transaction Count & Amount in USD \\
         \hline
         \multirow{3}{*}{INDIVIDUAL} & INDIVIDUAL\_OTHER & 14265 & -5496780.13 \\
         \cline{2-4}
         & COMPENSATION & 18488 & -31702794.38 \\
         \cline{2-4}
-        & \textbf{TOTAL} & \textbf{32753} & \textbf{-37299574.51} \\
+        & \textbf{Subtotal} & \textbf{32753} & \textbf{-37299574.51} \\
         \hline
 
-        \multirow{4}{*}{ORGANIZATION} & MARKETING & 18 & -8195.49 \\
+        \multirow{5}{*}{ORGANIZATION} & MARKETING & 18 & -8195.49 \\
         \cline{2-4}
         & INFRA & 119 & -269162.02 \\
         \cline{2-4}
@@ -278,12 +279,12 @@ Table \ref{tab:l1l2-summary-with-total}に、l1\_payeeとl2\_useごとの件数�
         \cline{2-4}
         & ORG\_OTHER & 3876 & -15590876.88 \\
         \cline{2-4}
-        & \textbf{TOTAL} & \textbf{4044} & \textbf{-16145530.18} \\
+        & \textbf{Subtotal} & \textbf{4044} & \textbf{-16145530.18} \\
         \hline
 
         \multirow{2}{*}{OTHER} & UNKNOWN & 30 & -4924.64 \\
         \cline{2-4}
-        & \textbf{TOTAL} & \textbf{30} & \textbf{-4924.64} \\
+        & \textbf{Subtotal} & \textbf{30} & \textbf{-4924.64} \\
         \hline
 
         \multirow{4}{*}{VENDOR} & ECOMMERCE & 159 & -44086.03 \\
@@ -292,7 +293,10 @@ Table \ref{tab:l1l2-summary-with-total}に、l1\_payeeとl2\_useごとの件数�
         \cline{2-4}
         & VENDOR\_OTHER & 4448 & -4360332.87 \\
         \cline{2-4}
-        & \textbf{TOTAL} & \textbf{6566} & \textbf{-4585745.79} \\
+        & \textbf{Subtotal} & \textbf{6566} & \textbf{-4585745.79} \\
+        \hline
+
+        \multicolumn{2}{|c|}{\textbf{Grand Total}} & \textbf{43393} & \textbf{-58035775.12} \\
         \hline
     \end{tabular}
 \end{table}
