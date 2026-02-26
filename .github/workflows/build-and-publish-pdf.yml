@@ -20,18 +20,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install TeX Live + latexmk (with pLaTeX)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            texlive-lang-japanese \
-            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
-            latexmk
-
-      - name: Compile LaTeX (pLaTeX -> dvipdfmx)
-        run: |
-          cd tex_source
-          latexmk -pdfdvi -interaction=nonstopmode -halt-on-error main.tex
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: tex_source/main.tex
+          work_in_root_file_dir: true
+          latexmk_use_lualatex: true
 
       - name: Prepare site for Pages
         run: |
