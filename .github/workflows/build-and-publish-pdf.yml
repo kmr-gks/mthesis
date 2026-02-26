@@ -13,34 +13,42 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
-env:
-  ROOT_TEX: main.tex
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Install TeX Live + latexmk (with pLaTeX)
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-          texlive-lang-japanese \
-          texlive-latex-base texlive-latex-recommended texlive-latex-extra \
-          latexmk
+            texlive-lang-japanese \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            latexmk
 
       - name: Compile LaTeX (pLaTeX -> dvipdfmx)
         run: |
           cd tex_source
           latexmk -pdfdvi -interaction=nonstopmode -halt-on-error main.tex
 
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v6
+      - name: Prepare site for Pages
+        run: |
+          mkdir -p site
+          cp tex_source/main.pdf site/main.pdf
+          cat > site/index.html << 'EOF'
+          <!doctype html>
+          <meta charset="utf-8">
+          <title>PDF</title>
+          <h1>PDF</h1>
+          <p><a href="./main.pdf">Open main.pdf</a></p>
+          EOF
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: PDF
-          path: tex_source/main.pdf
+          path: site
 
   deploy:
     needs: build
