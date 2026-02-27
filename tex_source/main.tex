@@ -1,5 +1,6 @@
 \documentclass[11pt]{ist-thesis-lt}
 \usepackage{multirow}
+\usepackage{booktabs}
 \pagestyle{bachelorthesis}  % 卒論
 %\pagestyle{ebachelorthesis}  % Graduation Thesis
 %\pagestyle{masterthesis}  % 修論（目安;38ページ以上）
@@ -97,17 +98,15 @@ The mined data is stored in the following three SQL tables.
 
 \begin{table}[htbp]
     \centering
-    \caption{List of Tables}
-    \begin{tabular}{|c|c|}
-        \hline
-        Name & Description\\
-        \hline
-        collective\_transactions & Table containing income and expenditure data for collectives \\
-        \hline
-        collectives & Table containing general information about collectives \\
-        \hline
-        commit\_history & Table containing commit history \\
-        \hline
+    \caption{List of Tables}\label{tab:tables-summary}
+    \begin{tabular}{ll}
+        \toprule
+        Name & Description \\
+        \midrule
+        \texttt{collective\_transactions} & Table containing income and expenditure data for collectives \\
+        \texttt{collectives}             & Table containing general information about collectives \\
+        \texttt{commit\_history}          & Table containing commit history \\
+        \bottomrule
     \end{tabular}
 \end{table}
 
@@ -117,136 +116,87 @@ The columns for the three SQL tables are shown in Table~\ref{tab:collective-tran
 
 \begin{table}[htbp]
     \centering
-    \caption{Columns of collective\_transactions}
-    \label{tab:collective-transactions-columns}
-    \begin{tabular}{|c|c|}
-        \hline
-        column\_name & Meaning \\
-        \hline
-        amount\_value        & Transaction amount \\
-        \hline
-        amount\_currency     & Currency \\
-        \hline
-        created\_at          & Transaction timestamp \\
-        \hline
-        expense\_tags        & Expense categories (natural language) \\
-        \hline
-        type                & debit or credit (distinguishing income and expenditure) \\
-        \hline
-        kind                & \begin{tabular}{c}
-Transaction type (distinguishing fund receipt, \\ fund usage, or fee payment)
-\end{tabular} \\
-        \hline
-        description         & Description (natural language) \\
-        \hline
-        id                  & ID \\
-        \hline
-        from\_account\_name  & Sender's name \\
-        \hline
-        from\_account\_type  & Sender's account type \\
-        \hline
-        to\_account\_slug    & Recipient's slug (unique identifier string) \\
-        \hline
-        to\_account\_name    & Recipient's name \\
-        \hline
-        to\_account\_type    & Recipient's account type \\
-        \hline
-        expense\_type        & Payment type (the form in which the payment occurred) \\
-        \hline
-        expense\_description & Expense description (natural language) \\
-        \hline
-        from\_account\_slug  & Sender's slug (unique identifier string) \\
-        \hline
-        project\_slug        & Project slug (unique identifier string) \\
-        \hline
-        project\_name        & Project name \\
-        \hline
+    \caption{Columns of \texttt{collective\_transactions}}\label{tab:collective-transactions-columns}
+    \begin{tabular}{ll}
+        \toprule
+        Column Name & Meaning \\
+        \midrule
+        \texttt{amount\_value}        & Transaction amount \\
+        \texttt{amount\_currency}     & Currency \\
+        \texttt{created\_at}          & Transaction timestamp \\
+        \texttt{expense\_tags}        & Expense categories (natural language) \\
+        \texttt{type}                & debit or credit (distinguishing income and expenditure) \\
+        \texttt{kind}                & \begin{tabular}{l}
+            Transaction type (distinguishing fund receipt, \\ 
+            fund usage, or fee payment)
+        \end{tabular} \\
+        \texttt{description}         & Description (natural language) \\
+        \texttt{id}                  & ID \\
+        \texttt{from\_account\_name}  & Sender's name \\
+        \texttt{from\_account\_type}  & Sender's account type \\
+        \texttt{to\_account\_slug}    & Recipient's slug (unique identifier string) \\
+        \texttt{to\_account\_name}    & Recipient's name \\
+        \texttt{to\_account\_type}    & Recipient's account type \\
+        \texttt{expense\_type}        & Payment type (the form in which the payment occurred) \\
+        \texttt{expense\_description} & Expense description (natural language) \\
+        \texttt{from\_account\_slug}  & Sender's slug (unique identifier string) \\
+        \texttt{project\_slug}        & Project slug (unique identifier string) \\
+        \texttt{project\_name}        & Project name \\
+        \bottomrule
     \end{tabular}
 \end{table}
 
 \begin{table}[htbp]
     \centering
-    \caption{Columns of collectives}
-    \label{tab:collectives-columns}
-    \begin{tabular}{|c|c|}
-        \hline
-        column\_name & Meaning \\
-        \hline
-        total\_spent\_value & Cumulative expenditure to date \\
-        \hline
-        total\_spent\_currency & Currency  \\
-        \hline
-        social\_links & Links to social media (Website, GitHub, Twitter, etc.) \\
-        \hline
-        yearly\_budget\_value & Estimated yearly budget (funds to be received) \\
-        \hline
-        yearly\_budget\_currency & Currency  \\
-        \hline
-        balance\_value & Current balance \\
-        \hline
-        balance\_currency & Currency  \\
-        \hline
-        created\_at & Registration date \\
-        \hline
-        total\_received\_value & Total amount received to date \\
-        \hline
-        total\_received\_currency & Currency  \\
-        \hline
-        twitter\_handle & Twitter handle \\
-        \hline
-        id & Collective ID \\
-        \hline
-        github\_account & GitHub account \\
-        \hline
-        slug & Collective slug \\
-        \hline
-        name & Collective name \\
-        \hline
-        type & Type (e.g., collective, project) \\
-        \hline
-        description & Description \\
-        \hline
-        website & Website URL \\
-        \hline
-        github\_handle & GitHub handle \\
-        \hline
+    \caption{Columns of \texttt{collectives}}\label{tab:collectives-columns}
+    \begin{tabular}{ll}
+        \toprule
+        Column Name & Meaning \\
+        \midrule
+        \texttt{total\_spent\_value}     & Cumulative expenditure to date \\
+        \texttt{total\_spent\_currency}  & Currency \\
+        \texttt{social\_links}           & Links to social media (Website, GitHub, Twitter, etc.) \\
+        \texttt{yearly\_budget\_value}   & Estimated yearly budget (funds to be received) \\
+        \texttt{yearly\_budget\_currency}& Currency \\
+        \texttt{balance\_value}          & Current balance \\
+        \texttt{balance\_currency}       & Currency \\
+        \texttt{created\_at}             & Registration date \\
+        \texttt{total\_received\_value}  & Total amount received to date \\
+        \texttt{total\_received\_currency}& Currency \\
+        \texttt{twitter\_handle}         & Twitter handle \\
+        \texttt{id}                      & Collective ID \\
+        \texttt{github\_account}         & GitHub account \\
+        \texttt{slug}                    & Collective slug \\
+        \texttt{name}                    & Collective name \\
+        \texttt{type}                    & Type (e.g., collective, project) \\
+        \texttt{description}             & Description \\
+        \texttt{website}                 & Website URL \\
+        \texttt{github\_handle}          & GitHub handle \\
+        \bottomrule
     \end{tabular}
 \end{table}
 
 \begin{table}[htbp]
     \centering
-    \caption{Columns of commit\_history}
-    \label{tab:commit-history-columns}
-    \begin{tabular}{|c|c|}
-        \hline
-        column\_name & Meaning \\
-        \hline
-        author\_name & Person who authored the commit \\
-        \hline
-        author\_email & Author's email address \\
-        \hline
-        author\_time & Timestamp when the commit was originally authored \\
-        \hline
-        committer\_name & Person who committed/edited the commit \\
-        \hline
-        committer\_email & Committer's email address \\
-        \hline
-        commit\_time & Timestamp when the commit was recorded (e.g., via rebase) \\
-        \hline
-        mined\_at & Timestamp when the data was mined  \\
-        \hline
-        repo\_path & Repository path \\
-        \hline
-        subject & Commit message subject \\
-        \hline
-        body & Commit description (body) \\
-        \hline
-        repo\_name & Repository name \\
-        \hline
-        commit\_hash & Commit hash \\
-        \hline
-        parent\_hashes & Parent commit hashes \\
-        \hline
+    \caption{Columns of \texttt{commit\_history}}\label{tab:commit-history-columns}
+    \begin{tabular}{ll}
+        \toprule
+        Column Name & Meaning \\
+        \midrule
+        \texttt{author\_name}    & Person who authored the commit \\
+        \texttt{author\_email}   & Author's email address \\
+        \texttt{author\_time}    & Timestamp when the commit was originally authored \\
+        \texttt{committer\_name} & Person who committed/edited the commit \\
+        \texttt{committer\_email}& Committer's email address \\
+        \texttt{commit\_time}    & Timestamp when the commit was recorded (e.g., via rebase) \\
+        \texttt{mined\_at}       & Timestamp when the data was mined \\
+        \texttt{repo\_path}      & Repository path \\
+        \texttt{subject}         & Commit message subject \\
+        \texttt{body}            & Commit description (body) \\
+        \texttt{repo\_name}      & Repository name \\
+        \texttt{commit\_hash}    & Commit hash \\
+        \texttt{parent\_hashes}  & Parent commit hashes \\
+        \bottomrule
     \end{tabular}
 \end{table}
 
@@ -262,46 +212,42 @@ Table~\ref{tab:expenditures-summary-with-subtotals} presents the record count an
 
 \begin{table}[htbp]
     \centering
-    \caption{Breakdown of Expenditures by Rule-Based Labeling}
-    \label{tab:expenditures-summary-with-subtotals}
-    \begin{tabular}{|c|c|r|r|}
-        \hline
-        Recipient\_Category & Purpose & Transaction Count & Amount in USD \\
-        \hline
-        \multirow{3}{*}{INDIVIDUAL} & INDIVIDUAL\_OTHER & 14265 & -5496780.13 \\
-        \cline{2-4}
-        & COMPENSATION & 18488 & -31702794.38 \\
-        \cline{2-4}
-        & \textbf{Subtotal} & \textbf{32753} & \textbf{-37299574.51} \\
-        \hline
-
-        \multirow{5}{*}{ORGANIZATION} & MARKETING & 18 & -8195.49 \\
-        \cline{2-4}
-        & INFRA & 119 & -269162.02 \\
-        \cline{2-4}
-        & GOVERNANCE & 31 & -277295.79 \\
-        \cline{2-4}
-        & ORG\_OTHER & 3876 & -15590876.88 \\
-        \cline{2-4}
-        & \textbf{Subtotal} & \textbf{4044} & \textbf{-16145530.18} \\
-        \hline
-
-        \multirow{2}{*}{OTHER} & UNKNOWN & 30 & -4924.64 \\
-        \cline{2-4}
-        & \textbf{Subtotal} & \textbf{30} & \textbf{-4924.64} \\
-        \hline
-
-        \multirow{4}{*}{VENDOR} & ECOMMERCE & 159 & -44086.03 \\
-        \cline{2-4}
-        & CLOUD\_OR\_SAAS & 1959 & -181326.89 \\
-        \cline{2-4}
-        & VENDOR\_OTHER & 4448 & -4360332.87 \\
-        \cline{2-4}
-        & \textbf{Subtotal} & \textbf{6566} & \textbf{-4585745.79} \\
-        \hline
-
-        \multicolumn{2}{|c|}{\textbf{Grand Total}} & \textbf{43393} & \textbf{-58035775.12} \\
-        \hline
+    \caption{Breakdown of Expenditures by Rule-Based Labeling}\label{tab:expenditures-summary-with-subtotals}
+    \begin{tabular}{llrr}
+        \toprule
+        Recipient Category & Purpose & Transaction Count & Amount \\
+        (\texttt{l1\_payee}) & (\texttt{l2\_use}) & (\texttt{n\_records}) & (USD) \\
+        \midrule
+        \multirow{3}{*}{Individual} & \texttt{Individual other} & 14,265 & $-5,496,780.13$ \\
+        \cmidrule(r){2-4}
+        & \texttt{Compensation} & 18,488 & $-31,702,794.38$ \\
+        \cmidrule(r){2-4}
+        & \textbf{Subtotal} & \textbf{32,753} & \textbf{$-37,299,574.51$} \\
+        \midrule
+        \multirow{5}{*}{Organization} & \texttt{Marketing} & 18 & $-8,195.49$ \\
+        \cmidrule(r){2-4}
+        & \texttt{Infrastructure} & 119 & $-269,162.02$ \\
+        \cmidrule(r){2-4}
+        & \texttt{Governance} & 31 & $-277,295.79$ \\
+        \cmidrule(r){2-4}
+        & \texttt{Organization other} & 3,876 & $-15,590,876.88$ \\
+        \cmidrule(r){2-4}
+        & \textbf{Subtotal} & \textbf{4,044} & \textbf{$-16,145,530.18$} \\
+        \midrule
+        \multirow{2}{*}{Other} & \texttt{Unknown} & 30 & $-4,924.64$ \\
+        \cmidrule(r){2-4}
+        & \textbf{Subtotal} & \textbf{30} & \textbf{$-4,924.64$} \\
+        \midrule
+        \multirow{4}{*}{Vendor} & \texttt{E-commerce} & 159 & $-44,086.03$ \\
+        \cmidrule(r){2-4}
+        & \texttt{Cloud or SaaS} & 1,959 & $-181,326.89$ \\
+        \cmidrule(r){2-4}
+        & \texttt{Vendor other} & 4,448 & $-4,360,332.87$ \\
+        \cmidrule(r){2-4}
+        & \textbf{Subtotal} & \textbf{6,566} & \textbf{$-4,585,745.79$} \\
+        \midrule
+        \multicolumn{2}{l}{\textbf{Grand Total}} & \textbf{43,393} & \textbf{$-58,035,775.12$} \\
+        \bottomrule
     \end{tabular}
 \end{table}
 
