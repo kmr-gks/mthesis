@@ -1,6 +1,7 @@
 \documentclass[11pt]{ist-thesis-lt}
 \usepackage{multirow}
 \usepackage{booktabs}
+\usepackage{graphicx}
 %\pagestyle{bachelorthesis}  % 卒論
 %\pagestyle{ebachelorthesis}  % Graduation Thesis
 %\pagestyle{masterthesis}  % 修論（目安;38ページ以上）
@@ -252,7 +253,19 @@ Table~\ref{tab:expenditures-summary-with-subtotals} presents the record count an
 
 \subsection{RQ3: Quantitative Measurement of Impact on Development}
 For each collective, we examined changes in the number of commits over 30 days and 180 days before and after the peak funding period.
+The following graph~\ref{fig:commits-change} and graph~\ref{fig:commits-change-scatter} show the relationship between the use of funds and the increase in the number of commits.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{commit_activity_ratio_histogram.png}
+    \caption{Changes in the Number of Commits Before and After Peak Funding Period}\label{fig:commits-change}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{funding_vs_commit_activity.png}
+    \caption{Scatter Plot of Changes in the Number of Commits Before and After Peak Funding Period}\label{fig:commits-change-scatter}
+\end{figure}
 
 
 \acknowledgement{
