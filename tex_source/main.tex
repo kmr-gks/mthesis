@@ -210,28 +210,29 @@ Two possible approaches for this classification are rule-based and machine-learn
 
 \newpage
 
-\subsubsection{機械学習による支出分類}
+\subsubsection{Expense Classification Using Machine Learning}
 
-本研究では，OpenCollective における OSS プロジェクトの資金の使途を分析するため，トランザクションデータを収集し，支出の内容を分類した．
-収集したトランザクションのうち，\texttt{kind = EXPENSE} のレコードを対象とし，合計 43,393 件の支出データを取得した．
+In this study, we collected transaction data from OpenCollective and classified the expenses in order to analyze how funds are used in OSS projects.
+Among the collected transactions, we focused on records with \texttt{kind = EXPENSE}, resulting in a total of 43,393 expense records.
 
-まず，\texttt{expense\_tags} に付与されたタグを基に，人手で支出の大分類を作成した．
-分類カテゴリは以下の 8 種類である．
+First, we manually created high-level expense categories based on the tags assigned in \texttt{expense\_tags}.
+The following eight categories were defined:
 
 \begin{itemize}
-\item development（開発）
-\item infra（インフラ）
-\item communication（コミュニケーション）
-\item governance（運営）
-\item travel（出張・イベント）
-\item supplies（備品）
-\item marketing（マーケティング）
-\item food（飲食）
+\item development
+\item infra
+\item communication
+\item governance
+\item travel
+\item supplies
+\item marketing
+\item food
+\item other (for records that do not fit into the above categories or have no tags)
 \end{itemize}
 
-このタグ情報から 7,003 件の支出データに対して大分類ラベルを付与し，教師データとして使用した．
+Using this tag information, we assigned category labels to 7,003 expense records, which were used as the training dataset.
 
-残りのデータについては，トランザクションに含まれる以下のメタデータを特徴量として機械学習による分類を行った．
+For the remaining records, we performed machine learning-based classification using the following transaction metadata as features:
 
 \begin{itemize}
 \item from\_account\_type
@@ -242,28 +243,26 @@ Two possible approaches for this classification are rule-based and machine-learn
 \item expense\_description
 \end{itemize}
 
-テキスト特徴量には TF-IDF を用い，分類器には Logistic Regression を使用した．
-教師データを 80\% / 20\% に分割し，テストデータで評価した結果，分類精度は 86.4\% であった．
+TF-IDF was used to extract textual features, and Logistic Regression was employed as the classifier.
+The labeled dataset was split into 80\% training data and 20\% test data.
+Evaluation on the test dataset showed that the classification accuracy was 86.4\%.
 
+\subsubsection{How OSS Projects Use Their Funds}
 
-\subsubsection{OSSプロジェクトの資金の使途}
+We combined the manually labeled data and the machine learning classification results to analyze a total of 37,453 expense records.
 
-教師データおよび機械学習による分類結果を統合し，合計 37,453 件の支出データについて分析を行った．
+To evaluate the performance of the classification model, we calculated Precision, Recall, and F1-score using a test dataset of 1,401 records.
+The results are shown in Table~\ref{tab:classification-performance}.
 
-分類モデルの性能を評価するため，テストデータ（1,401件）を用いて
-Precision，Recall，F1-score を算出した．
-結果を表~\ref{tab:classification-performance} に示す．
+Major categories such as \textit{development} and \textit{infra} achieved high F1-scores around 0.9, indicating that the classifier can accurately identify these categories.
+On the other hand, the F1-scores for \textit{communication} and \textit{marketing} were slightly lower, suggesting that misclassifications occasionally occur between semantically similar categories.
 
-development や infra といった主要カテゴリでは F1-score が
-0.9 前後と高い値を示しており，高い分類精度が確認された．
-一方で communication や marketing では F1-score が
-やや低く，意味的に近いカテゴリ間での誤分類が見られた．
 \begin{table}[htbp]
 \centering
-\caption{分類モデルの評価結果}\label{tab:classification-performance}
+\caption{Performance of the classification model}\label{tab:classification-performance}
 \begin{tabular}{lccc}
 \toprule
-カテゴリ & Precision & Recall & F1-score \\
+Category & Precision & Recall & F1-score \\
 \midrule
 communication & 0.66 & 0.64 & 0.65 \\
 development & 0.92 & 0.90 & 0.91 \\
@@ -280,14 +279,14 @@ Weighted Avg & 0.87 & 0.86 & 0.86 \\
 \end{tabular}
 \end{table}
 
-各カテゴリごとの支出件数および支出金額を表~\ref{tab:expense-summary} に示す．
+Table~\ref{tab:expense-summary} shows the number of transactions and the total amount of expenses for each category.
 
 \begin{table}[htbp]
 \centering
-\caption{OSSプロジェクトにおける資金の使途(教師データを除く)}\label{tab:expense-summary}
+\caption{How OSS projects spend their funds (excluding the training data)}\label{tab:expense-summary}
 \begin{tabular}{lrrr}
 \toprule
-カテゴリ & 件数 & 支出金額 (USD) & 割合 \\
+Category & \#Transactions & Total Amount (USD) & Share \\
 \midrule
 development & 16,426 & 33,554,523 & 65.0\% \\
 governance & 2,062 & 7,797,012 & 15.1\% \\
@@ -301,12 +300,12 @@ food & 343 & 156,579 & 0.3\% \\
 \end{tabular}
 \end{table}
 
-分析の結果，OSS プロジェクトに提供された資金の 65\% が開発者への報酬などの開発活動に使用されていることが分かった．
-また，プロジェクト運営（governance）が約 15\%，コミュニティ活動（communication）が約 10\% を占めており，
-OSS プロジェクトの資金が開発だけでなくコミュニティ運営にも使用されていることが確認された．
+The results show that approximately 65\% of the funds provided to OSS projects are used for development-related activities, such as compensating developers.
+In addition, project governance accounts for about 15\%, and community-related activities such as communication account for about 10\%.
+These results indicate that OSS project funding is used not only for development but also for project management and community activities.
 
-一方で，クラウドサービスやホスティングなどのインフラ関連の支出は 4.4\% にとどまり，
-OSS プロジェクトにおける主要な支出はインフラではなく，人件費やコミュニティ活動であることが示唆された．
+In contrast, infrastructure-related expenses such as cloud services and hosting account for only 4.4\%.
+This suggests that the primary expenses of OSS projects are not infrastructure costs but rather human resources and community-related activities.
 
 
 \subsection{RQ3: Quantitative Measurement of Impact on Development}
