@@ -207,48 +207,106 @@ We are considering how to answer RQ1.
 \subsection{RQ2: Analysis of Funding Expenditures}
 We categorized how collectives utilize the funds they receive. 
 Two possible approaches for this classification are rule-based and machine-learning-based. 
-In this study, we employed rule-based classification. 
-Table~\ref{tab:expenditures-summary-with-subtotals} presents the record count and total expenditure for each Recipient\_Category and Purpose.
+
+\newpage
+
+\subsubsection{機械学習による支出分類}
+
+本研究では，OpenCollective における OSS プロジェクトの資金の使途を分析するため，トランザクションデータを収集し，支出の内容を分類した．
+収集したトランザクションのうち，\texttt{kind = EXPENSE} のレコードを対象とし，合計 43,393 件の支出データを取得した．
+
+まず，\texttt{expense\_tags} に付与されたタグを基に，人手で支出の大分類を作成した．
+分類カテゴリは以下の 8 種類である．
+
+\begin{itemize}
+\item development（開発）
+\item infra（インフラ）
+\item communication（コミュニケーション）
+\item governance（運営）
+\item travel（出張・イベント）
+\item supplies（備品）
+\item marketing（マーケティング）
+\item food（飲食）
+\end{itemize}
+
+このタグ情報から 7,003 件の支出データに対して大分類ラベルを付与し，教師データとして使用した．
+
+残りのデータについては，トランザクションに含まれる以下のメタデータを特徴量として機械学習による分類を行った．
+
+\begin{itemize}
+\item from\_account\_type
+\item to\_account\_name
+\item to\_account\_type
+\item expense\_type
+\item description
+\item expense\_description
+\end{itemize}
+
+テキスト特徴量には TF-IDF を用い，分類器には Logistic Regression を使用した．
+教師データを 80\% / 20\% に分割し，テストデータで評価した結果，分類精度は 86.4\% であった．
+
+
+\subsubsection{OSSプロジェクトの資金の使途}
+
+教師データおよび機械学習による分類結果を統合し，合計 37,453 件の支出データについて分析を行った．
+
+分類モデルの性能を評価するため，テストデータ（1,401件）を用いて
+Precision，Recall，F1-score を算出した．
+結果を表~\ref{tab:classification-performance} に示す．
+
+development や infra といった主要カテゴリでは F1-score が
+0.9 前後と高い値を示しており，高い分類精度が確認された．
+一方で communication や marketing では F1-score が
+やや低く，意味的に近いカテゴリ間での誤分類が見られた．
+\begin{table}[htbp]
+\centering
+\caption{分類モデルの評価結果}\label{tab:classification-performance}
+\begin{tabular}{lccc}
+\toprule
+カテゴリ & Precision & Recall & F1-score \\
+\midrule
+communication & 0.66 & 0.64 & 0.65 \\
+development & 0.92 & 0.90 & 0.91 \\
+food & 1.00 & 0.67 & 0.80 \\
+governance & 0.88 & 0.83 & 0.86 \\
+infra & 0.93 & 0.90 & 0.92 \\
+marketing & 0.67 & 0.66 & 0.67 \\
+supplies & 0.77 & 0.91 & 0.83 \\
+travel & 0.80 & 0.94 & 0.87 \\
+\midrule
+Macro Avg & 0.83 & 0.81 & 0.81 \\
+Weighted Avg & 0.87 & 0.86 & 0.86 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+各カテゴリごとの支出件数および支出金額を表~\ref{tab:expense-summary} に示す．
 
 \begin{table}[htbp]
-    \centering
-    \caption{Breakdown of Expenditures by Rule-Based Labeling}\label{tab:expenditures-summary-with-subtotals}
-    \begin{tabular}{llrr}
-        \toprule
-        Recipient Category & Purpose & Transaction Count & Amount (USD) \\
-        \midrule
-        \multirow{3}{*}{Individual} & \texttt{Individual other} & 14,265 & $-5,496,780.13$ \\
-        \cmidrule(r){2-4}
-        & \texttt{Compensation} & 18,488 & $-31,702,794.38$ \\
-        \cmidrule(r){2-4}
-        & \textbf{Subtotal} & \textbf{32,753} & \textbf{$-37,299,574.51$} \\
-        \midrule
-        \multirow{5}{*}{Organization} & \texttt{Marketing} & 18 & $-8,195.49$ \\
-        \cmidrule(r){2-4}
-        & \texttt{Infrastructure} & 119 & $-269,162.02$ \\
-        \cmidrule(r){2-4}
-        & \texttt{Governance} & 31 & $-277,295.79$ \\
-        \cmidrule(r){2-4}
-        & \texttt{Organization other} & 3,876 & $-15,590,876.88$ \\
-        \cmidrule(r){2-4}
-        & \textbf{Subtotal} & \textbf{4,044} & \textbf{$-16,145,530.18$} \\
-        \midrule
-        \multirow{2}{*}{Other} & \texttt{Unknown} & 30 & $-4,924.64$ \\
-        \cmidrule(r){2-4}
-        & \textbf{Subtotal} & \textbf{30} & \textbf{$-4,924.64$} \\
-        \midrule
-        \multirow{4}{*}{Vendor} & \texttt{E-commerce} & 159 & $-44,086.03$ \\
-        \cmidrule(r){2-4}
-        & \texttt{Cloud or SaaS} & 1,959 & $-181,326.89$ \\
-        \cmidrule(r){2-4}
-        & \texttt{Vendor other} & 4,448 & $-4,360,332.87$ \\
-        \cmidrule(r){2-4}
-        & \textbf{Subtotal} & \textbf{6,566} & \textbf{$-4,585,745.79$} \\
-        \midrule
-        \multicolumn{2}{l}{\textbf{Grand Total}} & \textbf{43,393} & \textbf{$-58,035,775.12$} \\
-        \bottomrule
-    \end{tabular}
+\centering
+\caption{OSSプロジェクトにおける資金の使途(教師データを除く)}\label{tab:expense-summary}
+\begin{tabular}{lrrr}
+\toprule
+カテゴリ & 件数 & 支出金額 (USD) & 割合 \\
+\midrule
+development & 16,426 & 33,554,523 & 65.0\% \\
+governance & 2,062 & 7,797,012 & 15.1\% \\
+communication & 5,581 & 5,455,331 & 10.5\% \\
+infra & 8,093 & 2,280,779 & 4.4\% \\
+travel & 2,088 & 1,283,835 & 2.5\% \\
+supplies & 1,780 & 635,147 & 1.2\% \\
+marketing & 1,080 & 431,294 & 0.8\% \\
+food & 343 & 156,579 & 0.3\% \\
+\bottomrule
+\end{tabular}
 \end{table}
+
+分析の結果，OSS プロジェクトに提供された資金の 65\% が開発者への報酬などの開発活動に使用されていることが分かった．
+また，プロジェクト運営（governance）が約 15\%，コミュニティ活動（communication）が約 10\% を占めており，
+OSS プロジェクトの資金が開発だけでなくコミュニティ運営にも使用されていることが確認された．
+
+一方で，クラウドサービスやホスティングなどのインフラ関連の支出は 4.4\% にとどまり，
+OSS プロジェクトにおける主要な支出はインフラではなく，人件費やコミュニティ活動であることが示唆された．
 
 
 \subsection{RQ3: Quantitative Measurement of Impact on Development}
