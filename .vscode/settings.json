@@ -14,10 +14,7 @@
 	"latex-workshop.latex.tools": [
 		{
 			"name": "latexmk_rconly",
-			"command": "latexmk",
-			"args": [
-			],
-			"env": {}
+			"command": "latexmk"
 		}
 	],
 	"workbench.editorAssociations": {
