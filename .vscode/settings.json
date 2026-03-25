@@ -17,6 +17,7 @@
 			"command": "latexmk"
 		}
 	],
+	"latex-workshop.view.pdf.viewer": "browser",
 	"workbench.editorAssociations": {
 		"*.pdf": "latex-workshop-pdf-hook"
 	},
