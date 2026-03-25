@@ -200,6 +200,7 @@ The columns for the three SQL tables are shown in Table~\ref{tab:collective-tran
     \end{tabular}
 \end{table}
 
+\newpage
 \subsection{RQ1: Investigation of Financial Contributions}
 There are no answers to RQ1 yet.
 We are considering how to answer RQ1.
@@ -209,6 +210,27 @@ We categorized how collectives utilize the funds they receive.
 Two possible approaches for this classification are rule-based and machine-learning-based. 
 
 \newpage
+資金の使い道を分析するため、資金移動の記録 (transactions)にラベルをつけ、分類する必要がある。
+以下のラベルに分類することにした。
+\begin{table}[htbp]
+    \centering
+    \caption{Expense Categories}\label{tab:expense-categories}
+    \begin{tabular}{ll}
+        \toprule
+        Category & Description \\
+        \midrule
+        development & Expenses related to software development, such as developer compensation \\
+        infra & Expenses related to infrastructure, such as cloud services and hosting \\
+        communication & Expenses related to community communication, such as online meetings and events \\
+        governance & Expenses related to project governance, such as legal fees and administrative costs \\
+        travel & Expenses related to travel, such as transportation and accommodation for conferences \\
+        supplies & Expenses related to supplies, such as office supplies and equipment \\
+        marketing & Expenses related to marketing, such as promotional materials and advertising \\
+        food & Expenses related to food, such as catering for events and meetings \\
+        other & Expenses that do not fit into the above categories or have no tags \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 \subsubsection{Expense Classification Using Machine Learning}
 
@@ -216,19 +238,7 @@ In this study, we collected transaction data from OpenCollective and classified 
 Among the collected transactions, we focused on records with \texttt{kind = EXPENSE}, resulting in a total of 43,393 expense records.
 
 First, we manually created high-level expense categories based on the tags assigned in \texttt{expense\_tags}.
-The following eight categories were defined:
-
-\begin{itemize}
-\item development
-\item infra
-\item communication
-\item governance
-\item travel
-\item supplies
-\item marketing
-\item food
-\item other (for records that do not fit into the above categories or have no tags)
-\end{itemize}
+Table~\ref{tab:expense-categories}に示したカテゴリに手動で分類した。
 
 Using this tag information, we assigned category labels to 7,003 expense records, which were used as the training dataset.
 
