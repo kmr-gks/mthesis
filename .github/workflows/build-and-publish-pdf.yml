@@ -32,7 +32,7 @@ jobs:
       - name: Prepare site for Pages
         run: |
           mkdir -p site
-          cp tex_source/main.pdf site/main.pdf
+          cp tex_source/out/main.pdf site/main.pdf
           cat > site/index.html << 'EOF'
           <!doctype html>
           <meta charset="utf-8">
