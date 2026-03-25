@@ -1,3 +1,4 @@
 $lualatex = 'lualatex -synctex=1 -interaction=nonstopmode -halt-on-error -file-line-error';
+$out_dir = 'out';
 $bibtex = 'bibtexu';
 $pdf_mode = 4;
