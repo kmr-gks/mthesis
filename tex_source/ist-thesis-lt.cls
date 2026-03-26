@@ -263,7 +263,7 @@
 \renewcommand{\titlepage}{
   \newpage
   \thispagestyle{empty}
-  \setcounter{page}{0}
+  \setcounter{page}{1}
   \if\isfinal\yes
   \vspace*{\fill}
   \begin{center}
