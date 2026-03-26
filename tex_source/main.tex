@@ -92,6 +92,63 @@ To evaluate the impact of external events on OSS projects, researchers typically
 
 Studies focusing on social media exposure, such as promotion on Hacker News, have demonstrated that increased visibility can lead to a significant spike in forks, stars, and the number of contributors shortly after the project is mentioned\cite{sample}. Research has also indicated that projects receiving positive community sentiment through these platforms exhibit higher growth in commits and PRs\cite{sample}. This study builds upon these established empirical methods to investigate whether the injection of financial resources through funding platforms leads to similar quantifiable improvements in development activity.
 
+\section{Methodology}
+
+\subsection{Data Collection}
+
+\subsection{Labeling of Expense Categories}
+
+To investigate how OSS projects use the funds they receive, we label each expense and analyze the labeled data. First, we define a set of high-level categories based on the purpose of the expense. Then, we classify individual expense records into these categories. For the classification step, we consider two approaches: a machine-learning-based method and an LLM-based method.
+
+\subsubsection{Definition of Expense Categories}
+
+We define eight high-level categories based on the purpose of each expense in Table~\ref{tab:expense-categories}.
+Each category is designed to capture a distinct aspect of how OSS projects utilize their funds.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Refined Definitions of Expense Categories}\label{tab:expense-categories}
+    \begin{tabular}{lp{10cm}}
+        \toprule
+        Category & Description \\
+        \midrule
+        \textbf{Development} & Direct labor costs, including salaries, stipends, and contractor fees for software development and maintenance. \\
+        \textbf{Infra} & Costs related to maintaining the technical ecosystem, such as cloud hosting services (e.g., AWS, GCP), domain registration, and server hardware. \\
+        \textbf{Community \& Marketing} & Expenses for ecosystem growth and outreach, including conference sponsorships, marketing campaigns, and community event organizing. \\
+        \textbf{Legal \& Admin} & Expenditures for project governance, such as incorporation fees, trademark filings, tax preparation, and legal consultations. \\
+        \textbf{Travel} & Costs associated with transportation and lodging for attending conferences or project-related meetings. \\
+        \textbf{Equipment} & Purchase of physical assets, including laptops, peripheral devices, and office supplies required for project operations. \\
+        \textbf{Foods \& Meals} & Expenses for foods, meals and catering. \\
+        \textbf{Miscellaneous} & Any expenditures that do not fit into the above categories or contain insufficient data for accurate classification. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{Machine Learning-based Classification of Expenses}
+
+Among the collected transactions, we focused on records with \texttt{kind = EXPENSE}, resulting in a total of 43,393 expense records.
+
+First, we manually created high-level expense categories based on the tagsin Table~\ref{tab:expense-categories} assigned in \texttt{expense\_tags}.
+
+Using this tag information, we assigned category labels to 7,003 expense records, which were used as the training dataset.
+
+For the remaining records, we performed machine learning-based classification using the following transaction metadata as features:
+
+\begin{itemize}
+\item from\_account\_type
+\item to\_account\_name
+\item to\_account\_type
+\item expense\_type
+\item description
+\item expense\_description
+\end{itemize}
+
+TF-IDF was used to extract textual features, and Logistic Regression was employed as the classifier.
+
+\subsubsection{LLM-based Classification of Expenses}
+
+LLMにプロンプトと、expense\_descriptionの文字列を与えてラベリングさせる
+
 \section{(DRAFT) Progress and Results}
 
 \subsection{About the Mined Data}
@@ -211,51 +268,9 @@ Two possible approaches for this classification are rule-based and machine-learn
 
 \newpage
 
-\subsubsection{Definition of Expense Categories}
-
-We define eight high-level categories based on the purpose of each expense.
-Each category is designed to capture a distinct aspect of how OSS projects utilize their funds.
-
-\begin{table}[htbp]
-    \centering
-    \caption{Refined Definitions of Expense Categories}\label{tab:expense-categories}
-    \begin{tabular}{lp{10cm}}
-        \toprule
-        Category & Description \\
-        \midrule
-        \textbf{Personnel} & Direct labor costs, including salaries, stipends, and contractor fees for software development and maintenance. \\
-        \textbf{Infra} & Costs related to maintaining the technical ecosystem, such as cloud hosting services (e.g., AWS, GCP), domain registration, and server hardware. \\
-        \textbf{Community \& Marketing} & Expenses for ecosystem growth and outreach, including conference sponsorships, marketing campaigns, and community event organizing. \\
-        \textbf{Legal \& Admin} & Expenditures for project governance, such as incorporation fees, trademark filings, tax preparation, and legal consultations. \\
-        \textbf{Travel} & Costs associated with transportation and lodging for attending conferences or project-related meetings. \\
-        \textbf{Equipment} & Purchase of physical assets, including laptops, peripheral devices, and office supplies required for project operations. \\
-        \textbf{Foods \& Meals} & Expenses for foods, meals and catering. \\
-        \textbf{Miscellaneous} & Any expenditures that do not fit into the above categories or contain insufficient data for accurate classification. \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-
 \subsubsection{Expense Classification Using Machine Learning (communityとmarketingを統合する前のデータ)}
 
 In this study, we collected transaction data from OpenCollective and classified the expenses in order to analyze how funds are used in OSS projects.
-Among the collected transactions, we focused on records with \texttt{kind = EXPENSE}, resulting in a total of 43,393 expense records.
-
-First, we manually created high-level expense categories based on the tagsin Table~\ref{tab:expense-categories} assigned in \texttt{expense\_tags}.
-
-Using this tag information, we assigned category labels to 7,003 expense records, which were used as the training dataset.
-
-For the remaining records, we performed machine learning-based classification using the following transaction metadata as features:
-
-\begin{itemize}
-\item from\_account\_type
-\item to\_account\_name
-\item to\_account\_type
-\item expense\_type
-\item description
-\item expense\_description
-\end{itemize}
-
-TF-IDF was used to extract textual features, and Logistic Regression was employed as the classifier.
 The labeled dataset was split into 80\% training data and 20\% test data.
 Evaluation on the test dataset showed that the classification accuracy was 86.4\%.
 
