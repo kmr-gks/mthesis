@@ -126,8 +126,6 @@ Each category is designed to capture a distinct aspect of how OSS projects utili
 
 \subsubsection{Machine Learning-based Classification of Expenses}
 
-Among the collected transactions, we focused on records with \texttt{kind = EXPENSE}, resulting in a total of 43,393 expense records.
-
 First, we manually created high-level expense categories based on the tagsin Table~\ref{tab:expense-categories} assigned in \texttt{expense\_tags}.
 
 Using this tag information, we assigned category labels to 7,003 expense records, which were used as the training dataset.
@@ -147,7 +145,14 @@ TF-IDF was used to extract textual features, and Logistic Regression was employe
 
 \subsubsection{LLM-based Classification of Expenses}
 
-LLMにプロンプトと、expense\_descriptionの文字列を与えてラベリングさせる
+We used a Large Language Model (LLM) to classify the expense data. The process followed these steps:
+
+\begin{enumerate}
+    \item \textbf{Manual Labeling}: First, we randomly picked 381 records from the entire dataset. Two authors manually labeled these records by reading the \texttt{expense\_description}.
+    \item \textbf{Comparison and Agreement}: We compared the labels from the two authors. When our opinions were different, we discussed them to decide the final label. We did this carefully to make the labels as accurate as possible.
+    \item \textbf{Prompt Tuning}: Next, we gave the same 381 descriptions to the LLM for labeling. We adjusted the prompt so that the LLM's results would match our manual labels as much as possible.
+    \item \textbf{Full Classification}: Finally, we used the LLM with the adjusted prompt to classify all the remaining data.
+\end{enumerate}
 
 \section{(DRAFT) Progress and Results}
 
@@ -270,6 +275,7 @@ Two possible approaches for this classification are rule-based and machine-learn
 
 \subsubsection{Expense Classification Using Machine Learning (communityとmarketingを統合する前のデータ)}
 
+Among the collected transactions, we focused on records with \texttt{kind = EXPENSE}, resulting in a total of 43,393 expense records.
 In this study, we collected transaction data from OpenCollective and classified the expenses in order to analyze how funds are used in OSS projects.
 The labeled dataset was split into 80\% training data and 20\% test data.
 Evaluation on the test dataset showed that the classification accuracy was 86.4\%.
@@ -331,11 +337,6 @@ These results indicate that OSS project funding is used not only for development
 
 In contrast, infrastructure-related expenses such as cloud services and hosting account for only 4.4\%.
 This suggests that the primary expenses of OSS projects are not infrastructure costs but rather human resources and community-related activities.
-
-\subsubsection{Expense Classification Using LLM}
-
-LLMにプロンプトと、expense\_descriptionの文字列を与えてラベリングさせる
-
 
 \subsection{RQ3: Quantitative Measurement of Impact on Development}
 For each collective, we examined changes in the number of commits over 30 days and 180 days before and after the peak funding period.
