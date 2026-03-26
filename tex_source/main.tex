@@ -216,8 +216,6 @@ Two possible approaches for this classification are rule-based and machine-learn
 We define eight high-level categories based on the purpose of each expense.
 Each category is designed to capture a distinct aspect of how OSS projects utilize their funds.
 
-資金の使い道を分析するため、資金移動の記録 (transactions)にラベルをつけ、分類する必要がある。
-以下のラベルに分類することにした。
 \begin{table}[htbp]
     \centering
     \caption{Refined Definitions of Expense Categories}\label{tab:expense-categories}
@@ -227,7 +225,7 @@ Each category is designed to capture a distinct aspect of how OSS projects utili
         \midrule
         \textbf{Personnel} & Direct labor costs, including salaries, stipends, and contractor fees for software development and maintenance. \\
         \textbf{Infra} & Costs related to maintaining the technical ecosystem, such as cloud hosting services (e.g., AWS, GCP), domain registration, and server hardware. \\
-        \textbf{Community} & Expenses for ecosystem growth and outreach, including conference sponsorships, marketing campaigns, and community event organizing. \\
+        \textbf{Community \& Marketing} & Expenses for ecosystem growth and outreach, including conference sponsorships, marketing campaigns, and community event organizing. \\
         \textbf{Legal \& Admin} & Expenditures for project governance, such as incorporation fees, trademark filings, tax preparation, and legal consultations. \\
         \textbf{Travel} & Costs associated with transportation and lodging for attending conferences or project-related meetings. \\
         \textbf{Equipment} & Purchase of physical assets, including laptops, peripheral devices, and office supplies required for project operations. \\
@@ -237,13 +235,12 @@ Each category is designed to capture a distinct aspect of how OSS projects utili
     \end{tabular}
 \end{table}
 
-\subsubsection{Expense Classification Using Machine Learning}
+\subsubsection{Expense Classification Using Machine Learning (communityとmarketingを統合する前のデータ)}
 
 In this study, we collected transaction data from OpenCollective and classified the expenses in order to analyze how funds are used in OSS projects.
 Among the collected transactions, we focused on records with \texttt{kind = EXPENSE}, resulting in a total of 43,393 expense records.
 
-First, we manually created high-level expense categories based on the tags assigned in \texttt{expense\_tags}.
-Table~\ref{tab:expense-categories}に示したカテゴリに手動で分類した。
+First, we manually created high-level expense categories based on the tagsin Table~\ref{tab:expense-categories} assigned in \texttt{expense\_tags}.
 
 Using this tag information, we assigned category labels to 7,003 expense records, which were used as the training dataset.
 
