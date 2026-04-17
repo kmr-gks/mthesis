@@ -323,6 +323,35 @@ unknown & 0.58 & 0.43 & 0.49 & 42 \\
 \end{tabular}
 \end{table}
 
+ラベル統合後
+
+The results are as follows:
+
+\begin{itemize}
+    \item Accuracy: 0.70
+    \item Macro F1-score: 0.70
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\caption{Classification Performance After Category Consolidation}
+\label{tab:classification-results-merged}
+\begin{tabular}{lcccc}
+\toprule
+Category & Precision & Recall & F1-score & Support \\
+\midrule
+bounty & 0.80 & 0.75 & 0.77 & 16 \\
+development & 0.86 & 0.81 & 0.83 & 96 \\
+equipment & 0.73 & 1.00 & 0.84 & 8 \\
+food-supplies & 0.70 & 0.75 & 0.72 & 28 \\
+infra-subscription & 0.88 & 0.90 & 0.89 & 80 \\
+marketing-events & 0.78 & 0.56 & 0.65 & 57 \\
+non-tech-activities & 0.42 & 0.28 & 0.33 & 54 \\
+unknown & 0.40 & 0.71 & 0.51 & 42 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsubsection{Findings}
 
 The results reveal a clear pattern in the performance of the LLM-based classification.
