@@ -114,14 +114,11 @@ Each category is designed to capture a distinct aspect of how OSS projects utili
         \midrule
         \textbf{Development} & Compensation paid to official project members for direct software development and maintenance. \\
         \textbf{Bounty} & Rewards or fees paid to external contributors (non-members) for specific tasks, bug fixes, or feature implementations. \\
-        \textbf{Marketing \& Promotion} & Expenses for project outreach and visibility, such as advertising and sponsorships. \\
-        \textbf{Travel} & All costs associated with transportation, lodging, and conference attendance (including registration fees). \\
-        \textbf{Non-tech Service} & Payments for essential activities that are not directly related to coding, such as documentation, and technical writing. \\
         \textbf{Infra-subscription} & Recurring costs for cloud hosting, internet connectivity, and other software-as-a-service (SaaS) subscriptions. \\
         \textbf{Equipment} & Purchase of physical hardware and assets directly used for development activities, such as laptops and servers. \\
         \textbf{Food \& Supplies} & Purchase of consumables, meals, and general physical items that are not directly related to development. \\
-        \textbf{Legal \& Admin} & Expenditures for project governance, such as incorporation fees, trademark filings, tax preparation, and legal consultations. \\
-        \textbf{Miscellaneous} & Expenditures where the purpose is identified but does not fit into any of the specific categories above (e.g., bank fees). \\
+        \textbf{Marketing \& Events} & Costs for organizing or participating in events to promote the project and recruit new developers (includes marketing, promotion, transportation, registration fees). \\
+        \textbf{Non-tech Activities} & Essential tasks not directly linked to coding, such as documentation, translation, legal or tax compliance, and other miscellaneous fees. \\
         \textbf{Unknown} & Expenditures where the purpose cannot be determined at all due to missing or insufficient information. \\
         \bottomrule
     \end{tabular}
@@ -280,7 +277,7 @@ Two possible approaches for this classification are rule-based and machine-learn
 
 To analyze how funds are utilized in OSS projects, we classify expense descriptions into predefined categories using a large language model (LLM).
 
-We define 11 expense categories, including \textit{Development}, \textit{Bounty}, \textit{Infra-subscription}, and \textit{Miscellaneous}, each with a detailed textual definition.
+We define 11 expense categories, including \textit{Development}, \textit{Bounty}, \textit{Infra-subscription}, and \textit{Miscellaneous}, each with a detailed textual definition (Table~\ref{tab:expense-categories}).
 
 To evaluate the reliability of the LLM-based classification, we construct a manually labeled dataset.
 
