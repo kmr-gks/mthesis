@@ -272,10 +272,21 @@ RQ2で分析するように、資金の使い道は様々であるが、開発(�
 
 How much are they donating?
 
-総資金額
-平均
-中央値
-上位1\%プロジェクトの割合
+\begin{table}[htbp]
+\centering
+\caption{Summary Statistics of USD-denominated Transactions}
+\label{tab:transaction_summary}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Metric} & \textbf{Contributions (USD)} & \textbf{Expenses (USD)} \\
+\midrule
+Total Amount & 57,556,265.52 & 73,681,289.18 \\
+Average Amount & 54.41 & 1,698.00 \\
+Median Amount & 5.00 & 200.00 \\
+Top 1\% Threshold & 500.00 & 18,001.28 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{RQ2: Analysis of Funding Expenditures}
 We categorized how collectives utilize the funds they receive. 
